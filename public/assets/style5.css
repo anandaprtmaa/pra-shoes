@@ -1,0 +1,41 @@
+body{
+    background-color: #C0EEE4;
+}
+img{
+    width: 200px;
+    height: 200px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+}
+
+tr,th{
+    padding: 100px;
+;
+}
+
+thead{
+    background-color:#BA94D1 ;
+}
+tbody{
+    text-align: center;
+    background-color:white;
+}
+
+a.back{
+    background-color: #BA94D1;
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 15px 20px 15px 20px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.back:hover{
+    background-color:#C0EEE4 ;
+    text-decoration: none;
+}

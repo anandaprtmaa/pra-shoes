@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Mahasiswa</title>
+  <link rel="stylesheet" href="../../assets/style5.css" />
+</head>
+
+<body>
+  <h1 style="text-align: center;">DELETE BARANG</h1>
+  <a class="back" href="/halaman-admin">Kembali</a>
+  </button>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>NAMA</th>
+        <th>HARGA</th>
+        <th>STOK</th>
+        <th>FOTO</th>
+        <th colspan="3">AKSI</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script>
+
+    fetch("/api/barang", {
+      headers: {
+        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          const tr = document.createElement("tr");
+
+          const tdNama = document.createElement("td");
+          tdNama.textContent = data[i].nama;
+          tr.appendChild(tdNama);
+
+          const tdHarga = document.createElement("td");
+          tdHarga.textContent = data[i].harga;
+          tr.appendChild(tdHarga);
+
+          const tdStok = document.createElement("td");
+          tdStok.textContent = data[i].stok;
+          tr.appendChild(tdStok);
+
+          const tdPhoto = document.createElement("td");
+          const imgPhoto = document.createElement("img");
+          imgPhoto.className = "img";
+          imgPhoto.src = `/photo/${data[i].foto}`;
+          tdPhoto.appendChild(imgPhoto);
+          tr.appendChild(tdPhoto);
+
+          const tdDelete = document.createElement("td");
+          const buttonDelete = document.createElement("a");
+          buttonDelete.className = "back";
+          buttonDelete.textContent = "Hapus";
+          buttonDelete.onclick = () => {
+            if (
+              confirm(
+                `Apakah Anda yakin ingin menghapus ${data[i].nama}?`
+              )
+            ) {
+              fetch(`/api/barang/${data[i].id}`, {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              });
+              location.reload();
+            }
+          };
+          tdDelete.appendChild(buttonDelete);
+          tr.appendChild(tdDelete);
+
+          document.querySelector("tbody").appendChild(tr);
+        }
+      });
+  </script>
+</body>
+
+</html>

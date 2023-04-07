@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Barang</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <form name="edit">
+      <div class="title">
+        Edit Barang
+      </div>
+      <div class="form">
+         <div class="inputfield">
+            <label>Nama</label>
+            <input type="text" class="input" name="nama">
+         </div>  
+          <div class="inputfield">
+            <label>Harga</label>
+            <input type="text" class="input" name="harga">
+         </div>  
+         <div class="inputfield">
+          <label>Stok</label>
+          <input type="text" class="input" name="stok">
+       </div> 
+          
+        <div class="inputfield">
+            <label>Foto</label>
+            <input type="file" name="foto">
+         </div> 
+        <div class="inputfield terms">
+            <label class="check">
+              <input type="checkbox">
+              <span class="checkmark"></span>
+            </label>
+            <p>Agreed to terms and conditions</p>
+         </div> 
+        <div class="inputfield">
+          <button>Simpan</button>
+        </div>
+      </div>
+  </div>
+
+  <script>
+    const searchParams = new URLSearchParams(location.search);
+    // console.log(searchParams.get("id"));
+    fetch(`/api/barang/${searchParams.get("id")}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        document.edit.nama.value = data.nama;
+        document.edit.harga.value = data.harga;
+        document.edit.stok.value = data.stok;
+        document.edit.foto = File.foto;
+
+      });
+
+    document.edit.onsubmit = async (e) => {
+      e.preventDefault();
+      const data = new FormData();
+      data.append("nama", document.edit.nama.value);
+      data.append("harga", document.edit.harga.value);
+      data.append("stok", document.edit.stok.value);
+      data.append("foto", document.edit.foto.files[0]);
+
+
+      fetch(`/api/barang/${searchParams.get("id")}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: data,
+      });
+      alert("Data Berhasil Di edit.");
+      location.href = "/dashboard/edits";
+    };
+  </script>
+</body>
+
+</html>

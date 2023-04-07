@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman User</title>
+  <link rel="stylesheet" href="../assets/style6.css">
+  <script src="https://kit.fontawesome.com/ef935cd4ae.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header>
+    <form action="" name="keluar">
+      <button class="button-kembali">Keluar</button>
+
+    </form>
+    <a href="#" id="logo"><i class="fas fa-film"></i>Pra-Shoes</a>
+
+  </header>
+  <main>
+
+    <div class="background">
+      <h1 class="welcome">Pra-Shoes</h1>
+    </div>
+
+    <div id="output">
+
+    </div>
+
+    <div class="list-film">
+      <h2>Best Seller!<i class="far fa-play-circle"></i></i></h2>
+      <div id="list-film-nowPlaying"></div>
+    </div>
+  </main>
+  <footer>
+
+    <div class="copyright">
+      <br>
+      © 2021
+      <a href="index.html" class="footer-logo"><strong>Pra-Shoes</strong></a>
+      <span> | Made with ❤️ using </span>
+    </div>
+
+  </footer>
+  <script>
+
+
+    const tampungan = document.querySelector('#list-film-nowPlaying');
+
+    fetch("/api/barang", {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (products) {
+        for (let tamp = 0; tamp < products.length; tamp++) {
+          const barang = document.createElement("a");
+          barang.className = "now-playing";
+
+          const gambar = document.createElement("img");
+          gambar.src = `/photo/${products[tamp].foto}`;
+          barang.appendChild(gambar);
+          tampungan.appendChild(barang);
+
+          const judul = document.createElement("h5");
+          judul.textContent = products[tamp].nama;
+          barang.appendChild(judul);
+          tampungan.appendChild(barang);
+
+          const harga = document.createElement("p");
+          harga.className = "price";
+          harga.textContent = "Harga= " + "Rp." + products[tamp].harga;
+          barang.appendChild(harga);
+          tampungan.appendChild(barang);
+
+          tampungan.appendChild(barang);
+        }
+      });
+
+      const out = document.keluar;
+
+      out.onclick=()=>{
+        fetch("/api/keluar").then((response)=>{ 
+        if(response.oke){
+          location.href="/halaman-utama"
+        }
+        })
+        
+      }
+
+
+  </script>
+
+</body>
+
+</html>

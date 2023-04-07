@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/style4.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="../Dashboard/insert/" class="active">Tambah Barang </a>
+                    </li>
+                    <li>
+                        <a href="../Dashboard/edits/index.html" class="active">Edit Barang </a>
+                    </li>
+                    <li>
+                        <a href="../Dashboard/delete/index.html" class="active">Hapus Barang </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-right">
+
+            <form action="" name="keluar">
+                <button class="login-signup">keluar</button>
+            </form>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </header>
+    <script>
+        hamburger = document.querySelector(".hamburger");
+        nav = document.querySelector("nav");
+        hamburger.onclick = function () {
+            nav.classList.toggle("active");
+        }
+
+        const out = document.keluar;
+        out.onclick = () => {
+            fetch("/api/keluar").then((response) => {
+                if (response.oke) {
+                    location.href = "/halaman-utama"
+                }
+            })
+
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail barang</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+  <h1>Detail Barang</h1>
+  <script>
+    const searchParams = new URLSearchParams(location.search);
+    fetch(`/api/students/${searchParams.get("id")}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const divNim = document.createElement("div");
+        divNim.textContent = `Nim : ${data.Nim}`;
+        document.body.appendChild(divNim);
+
+
+        const divId = document.createElement("div");
+        divId.textContent = `Nama Lengkap: ${data.Nama_Lengkap}`;
+        document.body.appendChild(divId);
+
+        const divPro = document.createElement("div");
+        divPro.textContent = `Prodi : ${data.Program_Studi}`;
+        document.body.appendChild(divPro);
+
+        const divFak = document.createElement("div");
+        divFak.textContent = `Fakultas: ${data.Fakultas}`;
+        document.body.appendChild(divFak);
+
+        const divgen = document.createElement("div");
+        divgen.textContent = `Fakultas: ${data.Gender}`;
+        document.body.appendChild(divgen);
+
+        const divSem = document.createElement("div");
+        divSem.textContent = `Fakultas: ${data.Semester}`;
+        document.body.appendChild(divSem);
+
+
+        const divPhoto = document.createElement("div");
+        divPhoto.src = `/photos/${data.Foto}`;
+        document.appendChild(divPhoto);
+
+
+      });
+  </script>
+</body>
+
+</html>

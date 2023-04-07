@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Mahasiswa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <form name="insert">
+      <div class="title">
+        Tambah Barang
+      </div>
+      <div class="form">
+        <div class="inputfield">
+          <label>Nama</label>
+          <input type="text" class="input" name="nama">
+        </div>
+        <div class="inputfield">
+          <label>Harga</label>
+          <input type="text" class="input" name="harga">
+        </div>
+        <div class="inputfield">
+          <label>Stok</label>
+          <input type="text" class="input" name="stok">
+        </div>
+
+        <div class="inputfield">
+          <label>Foto</label>
+          <input type="file" name="photo">
+        </div>
+        <div class="inputfield terms">
+          <label class="check">
+            <input type="checkbox">
+            <span class="checkmark"></span>
+          </label>
+          <p>Agreed to terms and conditions</p>
+        </div>
+        <div class="inputfield">
+          <button>Simpan</button>
+        </div>
+      </div>
+  </div>
+  <script>
+    document.insert.onsubmit = async (e) => {
+      e.preventDefault();
+      let data = new FormData();
+      data.append("nama", document.insert.nama.value);
+      data.append("harga", document.insert.harga.value);
+      data.append("stok", document.insert.stok.value);
+      data.append("foto", document.insert.photo.files[0]);
+      console.log(data.append);
+      await fetch("/api/barang", {
+        method: "POST",
+        body: data,
+      });
+      location.href = "/halaman-admin";
+      alert("Data Berhasil Disimpan!")
+    };
+  </script>
+</body>
+
+</html>
